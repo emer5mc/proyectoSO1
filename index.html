@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Planificación de Procesos</title>
+    <link rel="stylesheet" href="disenio.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Simulador de Planificación de Procesos</h1>
+        
+        <div class="input-section">
+            <h2>Entrada de Procesos</h2>
+            <div class="input-options">
+                <button id="manual-btn">Ingreso Manual</button>
+                <button id="file-btn">Cargar desde Archivo</button>
+                <input type="file" id="file-input" accept=".txt,.json" style="display: none;">
+            </div>
+            
+            <div id="manual-input" class="hidden">
+                <div class="process-form">
+                    <input type="text" id="pid" placeholder="ID Proceso" required>
+                    <input type="number" id="arrival" placeholder="Tiempo Llegada" min="0" required>
+                    <input type="number" id="burst" placeholder="Tiempo Ráfaga" min="1" required>
+                    <input type="number" id="priority" placeholder="Prioridad (opcional)">
+                    <button id="add-process">Agregar Proceso</button>
+                </div>
+            </div>
+            
+            <div class="process-table-container">
+                <table id="process-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Llegada</th>
+                            <th>Ráfaga</th>
+                            <th>Prioridad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="process-list"></tbody>
+                </table>
+                <button id="clear-all" class="danger">Limpiar Todo</button>
+            </div>
+        </div>
+        
+        <div class="config-section">
+            <h2>Configuración de Simulación</h2>
+            <div class="config-options">
+                <select id="algorithm">
+                    <option value="fcfs">FCFS (First Come First Served)</option>
+                    <option value="sjf">SJF (Shortest Job First)</option>
+                    <option value="rr">Round Robin</option>
+                </select>
+                
+                <div id="quantum-container" class="hidden">
+                    <label for="quantum">Quantum (RR):</label>
+                    <input type="number" id="quantum" min="1" value="2">
+                </div>
+                
+                <button id="simulate-btn">Simular</button>
+            </div>
+        </div>
+        
+        <div class="results-section hidden" id="results">
+            <h2>Resultados de la Simulación</h2>
+            
+            <div class="gantt-container">
+                <h3>Diagrama de Gantt</h3>
+                <div id="gantt-chart"></div>
+            </div>
+            
+            <div class="metrics-container">
+                <h3>Métricas</h3>
+                <table id="metrics-table">
+                    <thead>
+                        <tr>
+                            <th>Proceso</th>
+                            <th>T. Espera</th>
+                            <th>T. Respuesta</th>
+                            <th>T. Retorno</th>
+                        </tr>
+                    </thead>
+                    <tbody id="metrics-list"></tbody>
+                </table>
+                <div id="cpu-usage"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="codigo.js"></script>
+</body>
+</html>
